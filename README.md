@@ -258,8 +258,6 @@ Nexron/
 
 ---
 
-## 👥 Built for Caspian AI Agent Hackathon 2026
-
 - **Project**: NEXORA (Nexron)
 - **Tagline**: ONE AGENT. EVERY HUMAN. ZERO DELAY.
 - **License**: MIT
