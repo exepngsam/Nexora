@@ -3,6 +3,7 @@ import { Flame, Clock, Cpu, UserCheck, ShieldAlert, CheckCircle2, AlertTriangle,
 import { Incident, IncidentEvent } from "../types";
 import { IncidentTimeline } from "./IncidentTimeline";
 import { AIDecisionPanel } from "./AIDecisionPanel";
+import { SystemLiveTelemetryMonitor } from "./SystemLiveTelemetryMonitor";
 
 interface LiveIncidentsViewProps {
   incident: Incident | null;
@@ -12,6 +13,14 @@ interface LiveIncidentsViewProps {
   onResolve: () => void;
   onViewPostmortem: () => void;
   hasPendingApproval: boolean;
+  onTriggerSimulation?: (params: {
+    service: string;
+    region: string;
+    error_rate: number;
+    latency: number;
+    affected_users: number;
+    title: string;
+  }) => void;
 }
 
 export const LiveIncidentsView: React.FC<LiveIncidentsViewProps> = ({
@@ -21,14 +30,11 @@ export const LiveIncidentsView: React.FC<LiveIncidentsViewProps> = ({
   onOpenApproval,
   onResolve,
   onViewPostmortem,
-  hasPendingApproval
+  hasPendingApproval,
+  onTriggerSimulation
 }) => {
   if (!incident) {
-    return (
-      <div className="p-12 rounded-2xl glass-panel text-center text-slate-500 text-xs">
-        No active incident. Click "SIMULATE INCIDENT" in the top navigation to trigger a P0 outage.
-      </div>
-    );
+    return <SystemLiveTelemetryMonitor onTriggerSimulation={onTriggerSimulation} />;
   }
 
   const isResolved = incident.status === "RESOLVED";

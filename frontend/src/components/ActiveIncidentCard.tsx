@@ -13,6 +13,7 @@ import {
   Sparkles
 } from "lucide-react";
 import { Incident } from "../types";
+import { SystemLiveTelemetryMonitor } from "./SystemLiveTelemetryMonitor";
 
 interface ActiveIncidentCardProps {
   incident: Incident | null;
@@ -22,6 +23,14 @@ interface ActiveIncidentCardProps {
   onResolve: () => void;
   onViewPostmortem: () => void;
   hasPendingApproval: boolean;
+  onTriggerSimulation?: (params: {
+    service: string;
+    region: string;
+    error_rate: number;
+    latency: number;
+    affected_users: number;
+    title: string;
+  }) => void;
 }
 
 export const ActiveIncidentCard: React.FC<ActiveIncidentCardProps> = ({
@@ -32,21 +41,10 @@ export const ActiveIncidentCard: React.FC<ActiveIncidentCardProps> = ({
   onResolve,
   onViewPostmortem,
   hasPendingApproval,
+  onTriggerSimulation,
 }) => {
   if (!incident) {
-    return (
-      <div className="rounded-3xl glass-panel p-8 text-center flex flex-col items-center justify-center space-y-3">
-        <div className="h-12 w-12 rounded-full bg-[#8B5CF6]/15 flex items-center justify-center text-[#C084FC] border border-[#8B5CF6]/30">
-          <CheckCircle2 className="h-6 w-6" />
-        </div>
-        <h3 className="text-base font-bold text-white font-heading">
-          All Systems Nominal
-        </h3>
-        <p className="text-xs text-[#C4B5FD] max-w-sm font-sans">
-          No active P0/P1 incidents detected. Autonomous telemetry monitoring 14 services across 6 regions.
-        </p>
-      </div>
-    );
+    return <SystemLiveTelemetryMonitor onTriggerSimulation={onTriggerSimulation} />;
   }
 
   const isResolved = incident.status === "RESOLVED";

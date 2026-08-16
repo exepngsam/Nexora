@@ -67,28 +67,28 @@ export const ThreeCanvasBackground: React.FC<ThreeCanvasBackgroundProps> = ({ is
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 
-    // 4. 3D Holographic Wireframe Torus Knot in Deep Background
-    const torusGeo = new THREE.TorusKnotGeometry(12, 2.5, 120, 20, 2, 3);
+    // 4. 3D Holographic Wireframe Torus Knot in Deep Background (positioned off to side)
+    const torusGeo = new THREE.TorusKnotGeometry(10, 2.2, 100, 16, 2, 3);
     const torusMat = new THREE.MeshBasicMaterial({
       color: 0x8b5cf6,
       wireframe: true,
       transparent: true,
-      opacity: 0.12,
+      opacity: 0.08,
     });
     const torusKnot = new THREE.Mesh(torusGeo, torusMat);
-    torusKnot.position.set(20, -10, -25);
+    torusKnot.position.set(32, -18, -40);
     scene.add(torusKnot);
 
     // 5. 3D Floating Icosahedron
-    const icoGeo = new THREE.IcosahedronGeometry(7, 1);
+    const icoGeo = new THREE.IcosahedronGeometry(6, 1);
     const icoMat = new THREE.MeshBasicMaterial({
       color: 0xa855f7,
       wireframe: true,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.08,
     });
     const icosahedron = new THREE.Mesh(icoGeo, icoMat);
-    icosahedron.position.set(-25, 12, -20);
+    icosahedron.position.set(-35, 18, -35);
     scene.add(icosahedron);
 
     // 6. Interactive Mouse Parallax

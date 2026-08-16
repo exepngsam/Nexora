@@ -279,6 +279,23 @@ export function App() {
               title: "Rollback Executed",
               message: `Error rate stabilized to ${data.error_rate}%`
             });
+          } else if (type === "agent.plan.updated") {
+            setCurrentIncident((prev) => prev ? {
+              ...prev,
+              plan: {
+                id: data.plan_id,
+                objective: data.objective || prev.plan?.objective || "Coordinate rapid triage, escalation, and stabilization",
+                current_status: data.current_status,
+                steps: data.steps,
+                waiting_for: data.waiting_for,
+                confidence: data.confidence || 0.96
+              }
+            } : null);
+          } else if (type === "agent.state.changed") {
+            setCurrentIncident((prev) => prev ? {
+              ...prev,
+              plan: prev.plan ? { ...prev.plan, current_status: data.status } : null
+            } : null);
           } else if (type === "incident.resolved") {
             soundEngine.playAlertBeep("success");
             soundEngine.speak("Incident resolved. All systems restored to baseline.");
@@ -579,6 +596,7 @@ export function App() {
                     onResolve={handleResolveIncident}
                     onViewPostmortem={() => setIsPostmortemModalOpen(true)}
                     hasPendingApproval={activeApproval?.status === "PENDING"}
+                    onTriggerSimulation={handleRunSimulation}
                   />
 
               <ResponseGraph
@@ -606,6 +624,7 @@ export function App() {
                 onResolve={handleResolveIncident}
                 onViewPostmortem={() => setIsPostmortemModalOpen(true)}
                 hasPendingApproval={activeApproval?.status === "PENDING"}
+                onTriggerSimulation={handleRunSimulation}
               />
             </div>
           ) : activeTab === "agent_plan" ? (
@@ -615,6 +634,14 @@ export function App() {
                 onPause={() => handleAgentIntervene("pause")}
                 onResume={() => handleAgentIntervene("resume")}
                 onIntervene={() => setIsApprovalModalOpen(true)}
+                onTriggerSimulation={handleRunSimulation}
+                onSimulateAck={(channel, name, text) => handleSimulateAck(channel, name, text)}
+                onApproveRollback={(id) => handleApprovalResponse(id, true)}
+                onResolveIncident={handleResolveIncident}
+                activeApproval={activeApproval}
+                countdown={countdown}
+                events={events}
+                isSimulating={isSimulating}
               />
             </div>
           ) : activeTab === "response_graph" ? (
