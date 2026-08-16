@@ -40,7 +40,9 @@ import {
   simulateIncident,
   acknowledgeIncident,
   respondToApproval,
-  resolveIncident
+  resolveIncident,
+  API_BASE,
+  WS_BASE
 } from "./services/api";
 
 import { Incident, IncidentEvent, AnalyticsData, Responder, Approval, ChannelStatus } from "./types";
@@ -155,10 +157,10 @@ export function App() {
 
       // Load playbooks & approvals
       try {
-        const pbRes = await fetch("http://localhost:8000/api/playbooks");
+        const pbRes = await fetch(`${API_BASE}/playbooks`);
         if (pbRes.ok) setPlaybooks(await pbRes.json());
 
-        const appRes = await fetch("http://localhost:8000/api/approvals");
+        const appRes = await fetch(`${API_BASE}/approvals`);
         if (appRes.ok) setApprovalsList(await appRes.json());
       } catch (e) {
         console.error("Secondary fetch error", e);
@@ -188,7 +190,7 @@ export function App() {
     let reconnectTimeout: any;
 
     const connectWS = () => {
-      ws = new WebSocket("ws://localhost:8000/ws");
+      ws = new WebSocket(WS_BASE);
       wsRef.current = ws;
 
       ws.onopen = () => {
@@ -376,7 +378,7 @@ export function App() {
         const updated = await fetchIncidentDetail(currentIncident.id);
         setCurrentIncident(updated);
       }
-      const appRes = await fetch("http://localhost:8000/api/approvals");
+      const appRes = await fetch(`${API_BASE}/approvals`);
       if (appRes.ok) setApprovalsList(await appRes.json());
       addToast({
         type: approved ? "success" : "info",
@@ -406,13 +408,13 @@ export function App() {
       title: "Synthesizing Playbook",
       message: `Querying Featherless AI for ${service}...`
     });
-    const res = await fetch("http://localhost:8000/api/playbooks/generate", {
+    const res = await fetch(`${API_BASE}/playbooks/generate`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt, service })
     });
     if (res.ok) {
-      const pbListRes = await fetch("http://localhost:8000/api/playbooks");
+      const pbListRes = await fetch(`${API_BASE}/playbooks`);
       if (pbListRes.ok) setPlaybooks(await pbListRes.json());
       addToast({
         type: "success",
@@ -424,7 +426,7 @@ export function App() {
 
   const handleAgentIntervene = async (action: "pause" | "resume") => {
     if (!currentIncident) return;
-    await fetch(`http://localhost:8000/api/agent/intervene/${currentIncident.id}`, {
+    await fetch(`${API_BASE}/agent/intervene/${currentIncident.id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action })

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FileSpreadsheet, Shield, Search, RefreshCw, CheckCircle, Clock } from "lucide-react";
+import { API_BASE } from "../services/api";
 
 interface AuditEntry {
   id: string;
@@ -18,7 +19,7 @@ export const AuditLogView: React.FC = () => {
 
   const loadLogs = async () => {
     try {
-      const res = await fetch("http://localhost:8000/api/audit");
+      const res = await fetch(`${API_BASE}/audit`);
       if (res.ok) {
         const data = await res.json();
         setLogs(data);

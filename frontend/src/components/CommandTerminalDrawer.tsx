@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Terminal, X, Minimize2, Maximize2, Send, CornerDownLeft, Shield, Cpu, Activity, Play, RefreshCw, Zap } from "lucide-react";
 import { Incident, Responder } from "../types";
+import { API_BASE } from "../services/api";
 
 interface CommandTerminalDrawerProps {
   isOpen: boolean;
@@ -180,13 +181,13 @@ Owner: ${currentIncident.owner || "Unassigned"}`
         if (args[0] === "test" || !args[0]) {
           addLog("output", "Benchmarking Featherless AI endpoint (https://api.featherless.ai/v1)...");
           try {
-            const res = await fetch("http://localhost:8000/api/llm/test", {
+            const res = await fetch(`${API_BASE}/featherless/test`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({})
             });
             const data = await res.json();
-            if (data.status === "ok") {
+            if (data.status === "connected" || data.status === "simulated") {
               addLog(
                 "output",
                 `✓ FEATHERLESS BENCHMARK PASSED:

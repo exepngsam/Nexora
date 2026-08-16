@@ -1,6 +1,7 @@
 import { Incident, AnalyticsData, ChannelStatus, Responder, Approval } from "../types";
 
-const API_BASE = "http://localhost:8000/api";
+export const API_BASE = (import.meta.env.VITE_API_BASE_URL as string) || "http://localhost:8000/api";
+export const WS_BASE = (import.meta.env.VITE_WS_URL as string) || "ws://localhost:8000/ws";
 
 export async function fetchIncidents(): Promise<Incident[]> {
   const res = await fetch(`${API_BASE}/incidents`);
