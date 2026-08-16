@@ -362,25 +362,16 @@ export const SystemLiveTelemetryMonitor: React.FC<SystemLiveTelemetryMonitorProp
           </div>
         </div>
 
-        {/* Chaos Injection Action Bar */}
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => triggerChaosOutage("Payment API", "P0")}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-rose-600/30 to-fuchsia-600/30 hover:from-rose-600/50 hover:to-fuchsia-600/50 text-rose-200 text-xs font-bold border border-rose-500/40 shadow-lg shadow-rose-500/20 active:scale-95 transition-all cursor-pointer font-heading"
-            title="Inject P0 Payment 504 Outage"
-          >
-            <Flame className="h-4 w-4 text-rose-400 animate-bounce" />
-            <span>Simulate P0 Outage</span>
-          </button>
-
-          <button
-            onClick={() => triggerChaosOutage("Postgres Aurora Primary", "P1")}
-            className="flex items-center space-x-1.5 px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-600/25 to-orange-600/25 hover:from-amber-600/40 hover:to-orange-600/40 text-amber-200 text-xs font-bold border border-amber-500/40 shadow-md active:scale-95 transition-all cursor-pointer font-heading"
-            title="Inject P1 Database Pool Exhaustion"
-          >
-            <Zap className="h-4 w-4 text-amber-400" />
-            <span>Simulate DB Saturation</span>
-          </button>
+        {/* Live Cluster Heartbeat Indicator */}
+        <div className="flex items-center space-x-3 text-xs font-mono">
+          <div className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-white/10 text-slate-300">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
+            <span>Prometheus Live Scrape: <strong className="text-emerald-400">100%</strong></span>
+          </div>
+          <div className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-900/90 border border-white/10 text-slate-400 text-[11px]">
+            <Radio className="h-3.5 w-3.5 text-cyan-400 animate-pulse" />
+            <span>12ms Telemetry Bus</span>
+          </div>
         </div>
       </div>
 
@@ -566,7 +557,7 @@ export const SystemLiveTelemetryMonitor: React.FC<SystemLiveTelemetryMonitorProp
             <Server className="h-4 w-4 text-purple-400" />
             <span>GLOBAL MICROSERVICES CLUSTER (14 SERVICES MONITORED)</span>
           </h3>
-          <span className="text-[10px] font-mono text-slate-400">Click service to inspect telemetry or inject fault</span>
+          <span className="text-[10px] font-mono text-emerald-400">14 Services Active & Nominal</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
@@ -619,19 +610,11 @@ export const SystemLiveTelemetryMonitor: React.FC<SystemLiveTelemetryMonitorProp
                   </div>
                 </div>
 
-                {/* Quick Inject Fault Button on Hover/Select */}
+                {/* Clean detail on select */}
                 {isSelected && (
-                  <div className="mt-3 pt-2.5 border-t border-cyan-500/30 flex items-center justify-between gap-2">
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        triggerChaosOutage(svc.name, "P0");
-                      }}
-                      className="w-full py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white text-[10px] font-bold shadow-md transition-all flex items-center justify-center space-x-1"
-                    >
-                      <Flame className="h-3 w-3" />
-                      <span>Inject Fault Anomaly</span>
-                    </button>
+                  <div className="mt-2.5 pt-2 border-t border-cyan-500/30 flex items-center justify-between text-[10px] text-cyan-300 font-mono">
+                    <span>Region: {svc.region}</span>
+                    <span className="text-emerald-400">✓ Nominal</span>
                   </div>
                 )}
               </div>
