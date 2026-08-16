@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Terminal, X, Minimize2, Maximize2, Send, CornerDownLeft, Shield, Cpu, Activity, Play, RefreshCw, Zap } from "lucide-react";
 import { Incident, Responder } from "../types";
-import { API_BASE } from "../services/api";
+import { API_BASE, testFeatherlessConnection } from "../services/api";
 
 interface CommandTerminalDrawerProps {
   isOpen: boolean;
@@ -181,22 +181,18 @@ Owner: ${currentIncident.owner || "Unassigned"}`
         if (args[0] === "test" || !args[0]) {
           addLog("output", "Benchmarking Featherless AI endpoint (https://api.featherless.ai/v1)...");
           try {
-            const res = await fetch(`${API_BASE}/featherless/test`, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({})
-            });
-            const data = await res.json();
+            const data = await testFeatherlessConnection();
             if (data.status === "connected" || data.status === "simulated") {
               addLog(
                 "output",
                 `✓ FEATHERLESS BENCHMARK PASSED:
+  Status: ${data.status.toUpperCase()} (${data.mode || "mock"} mode)
   Model: ${data.model}
   Latency: ${data.latency_ms}ms
-  Test Response: "${data.reply}"`
+  Test Response: "${data.reply || data.message}"`
               );
             } else {
-              addLog("error", `Featherless test warning: ${data.message}`);
+              addLog("error", `Featherless benchmark alert: ${data.message}`);
             }
           } catch (e: any) {
             addLog("error", `Connection test failed: ${e.message}`);
