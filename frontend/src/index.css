@@ -1,0 +1,270 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #07050e;
+    --bg-secondary: #0d091a;
+    --bg-card: rgba(19, 13, 43, 0.55);
+    --border-card: rgba(139, 92, 246, 0.25);
+    --accent-violet: #8b5cf6;
+    --accent-electric: #a855f7;
+    --accent-indigo: #6366f1;
+    --accent-cyan: #38bdf8;
+    --accent-rose: #f43f5e;
+    --accent-amber: #f59e0b;
+    --text-primary: #ffffff;
+    --text-secondary: #c4b5fd;
+    --text-muted: #94a3b8;
+  }
+
+  /* 🌌 Ultra-Cosmic DeepTech Violet Universe (Moodboard Theme) */
+  body, .theme-violet, .theme-monestra, .theme-emerald, .theme-amber, .theme-ruby {
+    background-color: #07050e;
+    color: #ffffff;
+    font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    background-image: 
+      radial-gradient(ellipse 100% 55% at 50% -10%, rgba(139, 92, 246, 0.35), transparent 75%),
+      radial-gradient(circle at 85% 25%, rgba(99, 102, 241, 0.22), transparent 50%),
+      radial-gradient(circle at 15% 65%, rgba(168, 85, 247, 0.2), transparent 50%),
+      radial-gradient(circle at 50% 95%, rgba(124, 58, 237, 0.25), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-heading {
+    font-family: "Outfit", sans-serif;
+    letter-spacing: -0.015em;
+  }
+
+  code, kbd, pre, .font-mono {
+    font-family: "JetBrains Mono", monospace;
+  }
+}
+
+/* Cosmic Cyber Grid with Ray Reflections */
+.cyber-grid {
+  background-size: 48px 48px;
+  background-image: 
+    linear-gradient(to right, rgba(139, 92, 246, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 92, 246, 0.06) 1px, transparent 1px);
+}
+
+/* Cosmic Horizon Arc / Eclipse Aura */
+.cosmic-horizon-arc {
+  position: relative;
+}
+.cosmic-horizon-arc::before {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.4) 0%, rgba(99, 102, 241, 0.15) 50%, transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Ultra-Deep Cosmic Glassmorphism */
+.glass-panel {
+  background: linear-gradient(135deg, rgba(20, 14, 45, 0.7) 0%, rgba(10, 7, 24, 0.9) 100%);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  box-shadow: 
+    0 16px 48px -12px rgba(0, 0, 0, 0.8),
+    0 0 24px -6px rgba(139, 92, 246, 0.15),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}
+
+.glass-panel-elevated {
+  background: linear-gradient(135deg, rgba(28, 18, 62, 0.85) 0%, rgba(13, 9, 30, 0.96) 100%);
+  backdrop-filter: blur(36px);
+  -webkit-backdrop-filter: blur(36px);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  box-shadow: 
+    0 24px 64px -12px rgba(0, 0, 0, 0.9),
+    0 0 35px -5px rgba(168, 85, 247, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+}
+
+.glass-panel-cosmic {
+  background: linear-gradient(145deg, rgba(35, 20, 80, 0.6) 0%, rgba(15, 9, 35, 0.85) 50%, rgba(8, 5, 20, 0.95) 100%);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  box-shadow: 
+    0 20px 50px -10px rgba(0, 0, 0, 0.8),
+    0 0 30px rgba(139, 92, 246, 0.2),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.glass-panel-hover:hover {
+  border-color: rgba(168, 85, 247, 0.6);
+  box-shadow: 
+    0 20px 60px -10px rgba(139, 92, 246, 0.35),
+    0 0 35px rgba(168, 85, 247, 0.25),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(-3px) scale(1.01);
+}
+
+/* Luminous Signal Glows */
+@keyframes cosmic-pulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4), inset 0 0 10px rgba(139, 92, 246, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.8), 0 0 60px rgba(99, 102, 241, 0.5), inset 0 0 20px rgba(139, 92, 246, 0.5);
+  }
+}
+
+.glow-signal {
+  animation: cosmic-pulse 2.8s infinite;
+}
+
+@keyframes pulse-critical {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(244, 63, 94, 0.3), inset 0 0 10px rgba(244, 63, 94, 0.2);
+    border-color: rgba(244, 63, 94, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(244, 63, 94, 0.65), 0 0 70px rgba(244, 63, 94, 0.3), inset 0 0 25px rgba(244, 63, 94, 0.4);
+    border-color: rgba(244, 63, 94, 0.9);
+  }
+}
+
+.glow-critical {
+  animation: pulse-critical 2s infinite;
+}
+
+/* Laser Energy Pulse along SVG lines */
+@keyframes laser-flow {
+  0% {
+    stroke-dashoffset: 60;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.laser-pulse {
+  stroke-dasharray: 8 16;
+  animation: laser-flow 1.2s linear infinite;
+}
+
+/* Shimmer gradient animation */
+@keyframes text-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #ffffff 0%, #c084fc 35%, #818cf8 65%, #ffffff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer 4s linear infinite;
+}
+
+/* Fluid Page Entry Animation */
+@keyframes cosmic-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-cosmic-fade {
+  animation: cosmic-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ========================================================
+   ULTRA-COSMIC NEON VIOLET SCROLLBAR SYSTEM
+   ======================================================== */
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 92, 246, 0.4) rgba(7, 5, 14, 0.5);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(7, 5, 14, 0.4);
+  border-radius: 9999px;
+  margin: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(168, 85, 247, 0.45) 0%, rgba(99, 102, 241, 0.6) 100%);
+  border-radius: 9999px;
+  border: 1px solid rgba(192, 132, 252, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #c084fc 0%, #7c3aed 100%);
+  border-color: rgba(192, 132, 252, 0.8);
+  box-shadow: 0 0 14px rgba(168, 85, 247, 0.7);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: #a855f7;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Custom Minimal Scrollbar */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(139, 92, 246, 0.3) transparent;
+}
+
+.custom-scroll::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.25);
+  border-radius: 9999px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.7);
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
